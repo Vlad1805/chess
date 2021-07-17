@@ -1,6 +1,6 @@
-from board import *
+#from board import *
 
-board = Board()
+#board = Board([])
 
 class Piece():
     def __init__(self, color, img, x, y):
@@ -14,7 +14,7 @@ class Piece():
 class Pawn(Piece):
     def __init__(self, color, img, x, y, firstMove):
         super().__init__(color, img, x, y)
-        self.firstMove = 1
+        self.firstMove = firstMove
     def longMove(self):
         if self.firstMove == 1:
             if self.color == 'white':

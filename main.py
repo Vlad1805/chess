@@ -18,9 +18,9 @@ class Game():
         pieces = [None] * 16
         for i in range(16):
             if i < 8:
-                pieces[i] = Pawn('black', PIECES[11], i, 1)
+                pieces[i] = Pawn('black', PIECES[11], i, 1, 1)
             else:
-                pieces[i] = Pawn('white', PIECES[5], i - 8, 6)
+                pieces[i] = Pawn('white', PIECES[5], i - 8, 6, 1)
         pieces.append(Bishop('black', PIECES[8], 2, 0))
         pieces.append(Bishop('black', PIECES[8], 5, 0))
         pieces.append(Bishop('white', PIECES[2], 2, 7))
