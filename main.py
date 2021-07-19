@@ -3,6 +3,11 @@ from peace import *
 from pygame.locals import *
 pygame.init()
 
+dot = pygame.image.load('dot.png')
+dot = pygame.transform.scale(dot, (90, 90))
+dots = []
+clicked_peace = None
+
 class Game():
     def __init__(self):
         
@@ -51,26 +56,52 @@ class Game():
         self.screen.blit(board_image, (0, 0))
         pygame.display.flip()
 
+        clock = pygame.time.Clock()
+        clock.tick(60)
+
         while 1:
-            self.Loop(pieces)
+            self.Loop(pieces,board_image)
   
 
-    def Loop(self, peaces):
+    def Loop(self, peaces, board_image):
         # main game loop
-        self.eventLoop()
+        self.eventLoop(peaces)
         
         self.Tick()
-        self.Draw(peaces)
-        pygame.display.update()
+        self.Draw(peaces, board_image)
+        
 
-    def Draw(self,peaces):
+    def Draw(self,peaces, board_image):
+        #print(dots)
+        background_colour = (255,255,255)
+        #self.screen.fill(background_colour)
+        self.screen.blit(board_image, (0, 0))
         for peace in peaces:
             self.screen.blit(peace.img, (peace.coord()))
+        for d in dots:
+            self.screen.blit(dot, [d[0] * 90, d[1] * 90])
+        pygame.display.update()
 
-    def eventLoop(self):
+    def eventLoop(self,peaces):
+        global dots
+        global clicked_peace
+        moves = []
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                pos = pygame.mouse.get_pos()
+                for s in peaces:
+                    if s.click(pos):
+                        clicked_peace = s
+                        dots = s.onClick()
+            if event.type == pygame.MOUSEBUTTONUP:
+                pos = pygame.mouse.get_pos()
+                print("DA")
+                if clicked_peace is not None:
+                    clicked_peace.move(pos, dots)
+                dots = []
+
 
     def Tick(self):
         pass
