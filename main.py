@@ -1,3 +1,5 @@
+#Copyright 2021 Stanciu Vlad
+
 import pygame
 from peace import *
 from pygame.locals import *

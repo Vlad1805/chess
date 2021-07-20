@@ -1,3 +1,5 @@
+#Copyright 2021 Stanciu Vlad
+
 class Piece():
     def __init__(self, color, img, x, y):
         self.color = color
