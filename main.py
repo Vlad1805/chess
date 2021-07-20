@@ -8,6 +8,7 @@ dot = pygame.transform.scale(dot, (90, 90))
 dots = []
 clicked_peace = None
 PIECES = [None] * 12
+Player = 'white'
 
 def Transform(peace, board):
     if peace.color == 'black':
@@ -39,20 +40,19 @@ class Game():
         board[(2,0)] = Bishop('black', PIECES[8], 2, 0)
         board[(5,0)] = Bishop('black', PIECES[8], 5, 0)
         board[(2,7)] = Bishop('white', PIECES[2], 2, 7)
-        board[(5,7)] = Bishop('black', PIECES[2], 5, 7)
+        board[(5,7)] = Bishop('white', PIECES[2], 5, 7)
         board[(1,0)] = Knight('black', PIECES[9], 1, 0)
         board[(6,0)] = Knight('black', PIECES[9], 6, 0)
         board[(1,7)] = Knight('white', PIECES[3], 1, 7)
         board[(6,7)] = Knight('white', PIECES[3], 6, 7)
-        board[(0,0)] = Rook('black', PIECES[10], 0, 0)
-        board[(7,0)] = Rook('black', PIECES[10], 7, 0)
-        board[(0,7)] = Rook('white', PIECES[4], 0, 7)
-        board[(7,7)] = Rook('white', PIECES[4], 7, 7)
-        board[(4,0)] = Queen('black', PIECES[7], 4, 0)
-        board[(4,7)] = Queen('white', PIECES[1], 4, 7)
-        
-        board[(3,0)] = King('black', PIECES[6], 3, 0)
-        board[(3,7)] = King('white', PIECES[0], 3, 7)
+        board[(0,0)] = Rook('black', PIECES[10], 0, 0, 1)
+        board[(7,0)] = Rook('black', PIECES[10], 7, 0, 1)
+        board[(0,7)] = Rook('white', PIECES[4], 0, 7, 1)
+        board[(7,7)] = Rook('white', PIECES[4], 7, 7, 1)
+        board[(4,0)] = Queen('black', PIECES[7], 3, 0)
+        board[(4,7)] = Queen('white', PIECES[1], 3, 7)
+        board[(3,0)] = King('black', PIECES[6], 4, 0, 1)
+        board[(3,7)] = King('white', PIECES[0], 4, 7, 1)
 
         #create game window
         pygame.display.set_caption('chess')
@@ -94,6 +94,7 @@ class Game():
         pygame.display.update()
 
     def eventLoop(self,board):
+        global Player
         global dots
         global clicked_peace
         moves = []
