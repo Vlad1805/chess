@@ -18,6 +18,12 @@ def Transform(peace, board):
     else:
         board[(peace.x, peace.y)] = Queen('white', PIECES[1], peace.x, peace.y)
 
+def changePlayer():
+    global Player
+    if Player == 'white':
+        Player = 'black'
+    else:
+        Player = 'white'
 
 class Game():
     def __init__(self):
@@ -51,10 +57,10 @@ class Game():
         board[(7,0)] = Rook('black', PIECES[10], 7, 0, 1)
         board[(0,7)] = Rook('white', PIECES[4], 0, 7, 1)
         board[(7,7)] = Rook('white', PIECES[4], 7, 7, 1)
-        board[(4,0)] = Queen('black', PIECES[7], 3, 0)
-        board[(4,7)] = Queen('white', PIECES[1], 3, 7)
-        board[(3,0)] = King('black', PIECES[6], 4, 0, 1)
-        board[(3,7)] = King('white', PIECES[0], 4, 7, 1)
+        board[(3,0)] = Queen('black', PIECES[7], 3, 0)
+        board[(3,7)] = Queen('white', PIECES[1], 3, 7)
+        board[(4,0)] = King('black', PIECES[6], 4, 0, 1)
+        board[(4,7)] = King('white', PIECES[0], 4, 7, 1)
 
         #create game window
         pygame.display.set_caption('chess')
@@ -106,14 +112,20 @@ class Game():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 pos = pygame.mouse.get_pos()
                 for s in board.values():
-                    if s.click(pos):
+                    if s.click(pos) and s.color == Player:
                         clicked_peace = s
                         dots = s.onClick(board)
             if event.type == pygame.MOUSEBUTTONUP:
                 pos = pygame.mouse.get_pos()
                 if clicked_peace is not None:
-                    if clicked_peace.move(pos, dots, board):
+                    case = clicked_peace.move(pos, dots, board)
+                    print(case)
+                    if  case == 2:
                         Transform(clicked_peace, board)
+                        changePlayer()
+                    elif case == 1:
+                        changePlayer()
+                    print(Player)
                 dots = []
 
 

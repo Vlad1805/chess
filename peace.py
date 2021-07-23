@@ -28,28 +28,28 @@ class Piece():
                     board[0, 7].x = 3
                     board[3, 7] = board.pop((0, 7))
                     self.firstMove = 0
-                    return False
+                    return 1
                 if p == [6, 7] and self.color == 'white':
                     board[6, 7] = board.pop((self.x, self.y))
                     self.x = 6
                     board[7, 7].x = 5
                     board[5, 7] = board.pop((7, 7))
                     self.firstMove = 0
-                    return False
+                    return 1
                 if p == [2, 0] and self.color == 'black':
                     board[2, 0] = board.pop((self.x, self.y))
                     self.x = 2
                     board[0, 0].x = 3
                     board[3, 0] = board.pop((0, 0))
                     self.firstMove = 0
-                    return False
+                    return 1
                 if p == [6, 0] and self.color == 'black':
                     board[6, 0] = board.pop((self.x, self.y))
                     self.x = 6
                     board[7, 0].x = 5
                     board[5, 0] = board.pop((7, 0))
                     self.firstMove = 0
-                    return False
+                    return 1
 
             if (p[0], p[1]) in board.keys():
                 del board[(p[0], p[1])]
@@ -59,12 +59,13 @@ class Piece():
             if isinstance(self, Pawn):
                 self.firstMove = 0
                 if self.y == 0:
-                    return True
+                    return 2
                 if self.y == 7:
-                    return True
+                    return 2
             if isinstance(self, Rook) or isinstance(self, King):
                 self.firstMove = 0
-        return False
+            return 1
+        return 0
 
 class Pawn(Piece):
     def __init__(self, color, img, x, y, firstMove):
